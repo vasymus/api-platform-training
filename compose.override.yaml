@@ -39,6 +39,28 @@ services:
             -   target: 5432
                 published: 5432
                 protocol: tcp
+
+    ### Adminer ###
+    adminer:
+        image: adminer:4.8.0-standalone
+        environment:
+            - ADMINER_DESIGN=flat
+            - ADM_DEFAULT_SERVER=database
+            - ADMINER_PLUGINS=
+            - |
+                UPLOAD_INI_SETTINGS=
+                upload_max_filesize = 500M
+                post_max_size = 500M
+                memory_limit = -1
+                max_execution_time = 0
+                display_errors = 0
+        user: root
+        command:
+            sh -c 'echo "$$UPLOAD_INI_SETTINGS" > /usr/local/etc/php/conf.d/upload_large_dumps.ini
+            && php -S "[::]:8080" -t "/var/www/html"'
+        ports:
+            - "8080:8080"
+
 ###< doctrine/doctrine-bundle ###
 
 ###> symfony/mercure-bundle ###
