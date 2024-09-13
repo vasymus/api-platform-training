@@ -35,7 +35,9 @@ use Symfony\Component\Serializer\Attribute\SerializedName;
     ],
     denormalizationContext: [
         'groups' => ['treasure:write']
-    ]
+    ],
+    paginationClientItemsPerPage: true,
+    paginationItemsPerPage: 10
 )]
 class DragonTreasure
 {
@@ -68,8 +70,9 @@ class DragonTreasure
     #[ORM\Column]
     private bool $isPublished = false;
 
-    public function __construct()
+    public function __construct(string $name = null)
     {
+        $this->name = $name;
         $this->plunderedAt = new DateTimeImmutable();
     }
 
@@ -83,12 +86,12 @@ class DragonTreasure
         return $this->name;
     }
 
-    public function setName(string $name): static
-    {
-        $this->name = $name;
-
-        return $this;
-    }
+//    public function setName(string $name): static
+//    {
+//        $this->name = $name;
+//
+//        return $this;
+//    }
 
     public function getDescription(): ?string
     {
@@ -160,6 +163,13 @@ class DragonTreasure
     }
 
     public function setPublished(bool $isPublished): static
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function setIsPublished(bool $isPublished): static
     {
         $this->isPublished = $isPublished;
 
