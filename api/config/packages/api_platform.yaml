@@ -7,11 +7,14 @@ api_platform:
     formats:
         jsonld: ['application/ld+json']
         json: ['application/json']
+        html: ['text/html']
+        jsonhal: ['application/hal+json']
     docs_formats:
         jsonld: ['application/ld+json']
         jsonopenapi: ['application/vnd.openapi+json']
         html: ['text/html']
         json: ['application/json']
+        jsonhal: ['application/hal+json']
     # Good defaults for REST APIs
     defaults:
         stateless: true
