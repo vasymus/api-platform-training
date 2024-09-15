@@ -16,7 +16,11 @@ class AppFixtures extends Fixture
 
 //        $manager->flush();
 
-        DragonTreasureFactory::createMany(40);
         UserFactory::createMany(10);
+        DragonTreasureFactory::createMany(40, function () {
+            return [
+                'owner' => UserFactory::random(),
+            ];
+        });
     }
 }
